@@ -10,6 +10,14 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:call_log/call_log.dart';
 
 Future readPhoneLog() async {
+  var status = await Permission.phone.status;
+  if (!status.isGranted) {
+    status = await Permission.phone.request();
+    if (!status.isGranted) {
+      // Optionally, you can prompt a dialog here to inform user about the necessity of the permission
+    }
+  }
+
   if (await Permission.phone.request().isGranted) {
     Iterable<CallLogEntry> entries = await CallLog.get();
 
