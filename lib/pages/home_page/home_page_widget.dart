@@ -1,3 +1,4 @@
+import '/components/bottom_sheet1_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/actions/index.dart' as actions;
@@ -26,8 +27,26 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      await actions.requestPhonePermission();
       await actions.readPhoneLog();
+      if (FFAppState().myCallState == 'outgoing') {
+        await showModalBottomSheet(
+          isScrollControlled: true,
+          backgroundColor: Colors.transparent,
+          enableDrag: false,
+          context: context,
+          builder: (context) {
+            return GestureDetector(
+              onTap: () => _model.unfocusNode.canRequestFocus
+                  ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+                  : FocusScope.of(context).unfocus(),
+              child: Padding(
+                padding: MediaQuery.viewInsetsOf(context),
+                child: const BottomSheet1Widget(),
+              ),
+            );
+          },
+        ).then((value) => safeSetState(() {}));
+      }
     });
   }
 
