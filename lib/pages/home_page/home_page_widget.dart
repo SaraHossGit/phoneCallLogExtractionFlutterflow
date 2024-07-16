@@ -28,7 +28,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await actions.readPhoneLog();
-      if (FFAppState().myCallState == 'outgoing') {
+      if (FFAppState().myDuration == '10') {
         await showModalBottomSheet(
           isScrollControlled: true,
           backgroundColor: Colors.transparent,
