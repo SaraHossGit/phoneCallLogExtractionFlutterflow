@@ -31,7 +31,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       _model.instantTimer = InstantTimer.periodic(
         duration: const Duration(milliseconds: 1000),
         callback: (timer) async {
-          if (_model.pausePeriodic == false) {
+          if (true) {
             await actions.readPhoneLog();
             if (FFAppState().myDuration == '10') {
               _model.pausePeriodic = true;
