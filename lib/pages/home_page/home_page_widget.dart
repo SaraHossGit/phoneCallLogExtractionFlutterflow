@@ -1,6 +1,7 @@
 import '/components/bottom_sheet1_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/instant_timer.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -27,32 +28,37 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      while (true) {
-        if (_model.pausePeriodic == false) {
-          await actions.readPhoneLog();
-          if (FFAppState().myDuration == '10') {
-            _model.pausePeriodic = true;
-            setState(() {});
-            await showModalBottomSheet(
-              isScrollControlled: true,
-              backgroundColor: Colors.transparent,
-              enableDrag: false,
-              context: context,
-              builder: (context) {
-                return GestureDetector(
-                  onTap: () => _model.unfocusNode.canRequestFocus
-                      ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-                      : FocusScope.of(context).unfocus(),
-                  child: Padding(
-                    padding: MediaQuery.viewInsetsOf(context),
-                    child: const BottomSheet1Widget(),
-                  ),
-                );
-              },
-            ).then((value) => safeSetState(() => _model.submitted = value));
+      _model.instantTimer = InstantTimer.periodic(
+        duration: const Duration(milliseconds: 1000),
+        callback: (timer) async {
+          if (FFAppState().pausePeriodic == false) {
+            await actions.readPhoneLog();
+            if (FFAppState().myDuration == '10') {
+              FFAppState().pausePeriodic = true;
+              setState(() {});
+              await showModalBottomSheet(
+                isScrollControlled: true,
+                backgroundColor: Colors.transparent,
+                enableDrag: false,
+                context: context,
+                builder: (context) {
+                  return GestureDetector(
+                    onTap: () => _model.unfocusNode.canRequestFocus
+                        ? FocusScope.of(context)
+                            .requestFocus(_model.unfocusNode)
+                        : FocusScope.of(context).unfocus(),
+                    child: Padding(
+                      padding: MediaQuery.viewInsetsOf(context),
+                      child: const BottomSheet1Widget(),
+                    ),
+                  );
+                },
+              ).then((value) => safeSetState(() => _model.submitted = value));
+            }
           }
-        }
-      }
+        },
+        startImmediately: true,
+      );
     });
   }
 

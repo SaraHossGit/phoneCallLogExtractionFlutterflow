@@ -28,6 +28,9 @@ class FFAppState extends ChangeNotifier {
     _safeInit(() {
       _myDuration = prefs.getString('ff_myDuration') ?? _myDuration;
     });
+    _safeInit(() {
+      _pausePeriodic = prefs.getBool('ff_pausePeriodic') ?? _pausePeriodic;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -63,6 +66,13 @@ class FFAppState extends ChangeNotifier {
   set myDuration(String value) {
     _myDuration = value;
     prefs.setString('ff_myDuration', value);
+  }
+
+  bool _pausePeriodic = false;
+  bool get pausePeriodic => _pausePeriodic;
+  set pausePeriodic(bool value) {
+    _pausePeriodic = value;
+    prefs.setBool('ff_pausePeriodic', value);
   }
 }
 
