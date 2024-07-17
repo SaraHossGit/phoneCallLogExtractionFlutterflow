@@ -50,6 +50,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 );
               },
             ).then((value) => safeSetState(() {}));
+
+            _model.instantTimer?.cancel();
           }
         },
         startImmediately: true,

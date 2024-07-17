@@ -1,5 +1,7 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/instant_timer.dart';
 import 'package:flutter/material.dart';
 import 'bottom_sheet1_model.dart';
 export 'bottom_sheet1_model.dart';
@@ -41,12 +43,44 @@ class _BottomSheet1WidgetState extends State<BottomSheet1Widget> {
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
       ),
-      child: Text(
-        'Hello World',
-        style: FlutterFlowTheme.of(context).bodyMedium.override(
-              fontFamily: 'Readex Pro',
-              letterSpacing: 0.0,
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Text(
+            'Hello World',
+            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                  fontFamily: 'Readex Pro',
+                  letterSpacing: 0.0,
+                ),
+          ),
+          FFButtonWidget(
+            onPressed: () async {
+              _model.instantTimer = InstantTimer.periodic(
+                duration: const Duration(milliseconds: 1000),
+                callback: (timer) async {},
+                startImmediately: true,
+              );
+            },
+            text: 'Button',
+            options: FFButtonOptions(
+              height: 40.0,
+              padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+              iconPadding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+              color: FlutterFlowTheme.of(context).primary,
+              textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                    fontFamily: 'Readex Pro',
+                    color: Colors.white,
+                    letterSpacing: 0.0,
+                  ),
+              elevation: 3.0,
+              borderSide: const BorderSide(
+                color: Colors.transparent,
+                width: 1.0,
+              ),
+              borderRadius: BorderRadius.circular(8.0),
             ),
+          ),
+        ],
       ),
     );
   }
