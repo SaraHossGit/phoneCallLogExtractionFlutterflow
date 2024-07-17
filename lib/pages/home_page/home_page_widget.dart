@@ -28,13 +28,14 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      if (_model.submitted!) {
+      if (_model.pausePeriodic == false) {
         _model.checkCallLog = InstantTimer.periodic(
           duration: const Duration(milliseconds: 1000),
           callback: (timer) async {
             await actions.readPhoneLog();
             if (FFAppState().myDuration == '10') {
-              _model.checkCallLog?.cancel();
+              _model.pausePeriodic = true;
+              setState(() {});
               await showModalBottomSheet(
                 isScrollControlled: true,
                 backgroundColor: Colors.transparent,
@@ -53,6 +54,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   );
                 },
               ).then((value) => safeSetState(() => _model.submitted = value));
+
+              if (_model.submitted == true) {
+                _model.pausePeriodic = true;
+                setState(() {});
+              }
             }
           },
           startImmediately: true,
