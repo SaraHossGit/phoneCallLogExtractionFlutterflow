@@ -54,12 +54,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   );
                 },
               ).then((value) => safeSetState(() => _model.submitted = value));
-
-              if (_model.submitted == true) {
-                _model.pausePeriodic = true;
-                setState(() {});
-              }
             }
+          }
+          if (_model.submitted == true) {
+            _model.pausePeriodic = true;
+            setState(() {});
           }
         },
         startImmediately: true,
