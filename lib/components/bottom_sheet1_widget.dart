@@ -57,8 +57,8 @@ class _BottomSheet1WidgetState extends State<BottomSheet1Widget> {
           ),
           FFButtonWidget(
             onPressed: () async {
-              FFAppState().pausePeriodic = false;
               FFAppState().lastTimeStamp = FFAppState().myTimestamp;
+              FFAppState().pausePeriodic = false;
               setState(() {});
               Navigator.pop(context, true);
             },
