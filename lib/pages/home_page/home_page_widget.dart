@@ -131,8 +131,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     ),
               ),
               FFButtonWidget(
-                onPressed: () {
-                  print('Button pressed ...');
+                onPressed: () async {
+                  context.pushNamed('testPage');
                 },
                 text: 'Button',
                 options: FFButtonOptions(
