@@ -33,6 +33,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         callback: (timer) async {
           await actions.readPhoneLog();
           if (FFAppState().myDuration == '10') {
+            _model.instantTimer?.cancel();
             await showModalBottomSheet(
               isScrollControlled: true,
               backgroundColor: Colors.transparent,
@@ -50,8 +51,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 );
               },
             ).then((value) => safeSetState(() {}));
-
-            _model.instantTimer?.cancel();
           }
         },
         startImmediately: true,
