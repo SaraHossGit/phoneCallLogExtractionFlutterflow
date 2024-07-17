@@ -28,10 +28,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      if (_model.pausePeriodic == false) {
-        _model.checkCallLog = InstantTimer.periodic(
-          duration: const Duration(milliseconds: 1000),
-          callback: (timer) async {
+      _model.instantTimer = InstantTimer.periodic(
+        duration: const Duration(milliseconds: 1000),
+        callback: (timer) async {
+          if (_model.pausePeriodic == false) {
             await actions.readPhoneLog();
             if (FFAppState().myDuration == '10') {
               _model.pausePeriodic = true;
@@ -60,10 +60,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 setState(() {});
               }
             }
-          },
-          startImmediately: true,
-        );
-      }
+          }
+        },
+        startImmediately: true,
+      );
     });
   }
 
