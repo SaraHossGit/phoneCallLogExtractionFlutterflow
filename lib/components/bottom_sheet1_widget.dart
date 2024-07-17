@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/instant_timer.dart';
 import 'package:flutter/material.dart';
 import 'bottom_sheet1_model.dart';
 export 'bottom_sheet1_model.dart';
@@ -55,11 +54,7 @@ class _BottomSheet1WidgetState extends State<BottomSheet1Widget> {
           ),
           FFButtonWidget(
             onPressed: () async {
-              _model.instantTimer = InstantTimer.periodic(
-                duration: const Duration(milliseconds: 1000),
-                callback: (timer) async {},
-                startImmediately: true,
-              );
+              Navigator.pop(context, true);
             },
             text: 'Button',
             options: FFButtonOptions(

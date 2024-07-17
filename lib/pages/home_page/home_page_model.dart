@@ -7,7 +7,9 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  InstantTimer? instantTimer;
+  InstantTimer? checkCallLog;
+  // Stores action output result for [Bottom Sheet - bottomSheet1] action in HomePage widget.
+  bool? submitted;
 
   @override
   void initState(BuildContext context) {}
@@ -15,6 +17,6 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   @override
   void dispose() {
     unfocusNode.dispose();
-    instantTimer?.cancel();
+    checkCallLog?.cancel();
   }
 }

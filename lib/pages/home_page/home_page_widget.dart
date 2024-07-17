@@ -28,33 +28,36 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.instantTimer = InstantTimer.periodic(
-        duration: const Duration(milliseconds: 1000),
-        callback: (timer) async {
-          await actions.readPhoneLog();
-          if (FFAppState().myDuration == '10') {
-            _model.instantTimer?.cancel();
-            await showModalBottomSheet(
-              isScrollControlled: true,
-              backgroundColor: Colors.transparent,
-              enableDrag: false,
-              context: context,
-              builder: (context) {
-                return GestureDetector(
-                  onTap: () => _model.unfocusNode.canRequestFocus
-                      ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-                      : FocusScope.of(context).unfocus(),
-                  child: Padding(
-                    padding: MediaQuery.viewInsetsOf(context),
-                    child: const BottomSheet1Widget(),
-                  ),
-                );
-              },
-            ).then((value) => safeSetState(() {}));
-          }
-        },
-        startImmediately: true,
-      );
+      if (_model.submitted!) {
+        _model.checkCallLog = InstantTimer.periodic(
+          duration: const Duration(milliseconds: 1000),
+          callback: (timer) async {
+            await actions.readPhoneLog();
+            if (FFAppState().myDuration == '10') {
+              _model.checkCallLog?.cancel();
+              await showModalBottomSheet(
+                isScrollControlled: true,
+                backgroundColor: Colors.transparent,
+                enableDrag: false,
+                context: context,
+                builder: (context) {
+                  return GestureDetector(
+                    onTap: () => _model.unfocusNode.canRequestFocus
+                        ? FocusScope.of(context)
+                            .requestFocus(_model.unfocusNode)
+                        : FocusScope.of(context).unfocus(),
+                    child: Padding(
+                      padding: MediaQuery.viewInsetsOf(context),
+                      child: const BottomSheet1Widget(),
+                    ),
+                  );
+                },
+              ).then((value) => safeSetState(() => _model.submitted = value));
+            }
+          },
+          startImmediately: true,
+        );
+      }
     });
   }
 
