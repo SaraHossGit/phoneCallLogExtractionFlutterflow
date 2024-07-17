@@ -33,7 +33,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
         callback: (timer) async {
           if (FFAppState().pausePeriodic == false) {
             await actions.readPhoneLog();
-            if (FFAppState().myDuration == '10') {
+            if (FFAppState().myTimestamp != FFAppState().lastTimeStamp) {
               FFAppState().pausePeriodic = true;
               setState(() {});
               await showModalBottomSheet(

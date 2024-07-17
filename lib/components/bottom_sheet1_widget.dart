@@ -2,6 +2,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'bottom_sheet1_model.dart';
 export 'bottom_sheet1_model.dart';
 
@@ -36,6 +37,8 @@ class _BottomSheet1WidgetState extends State<BottomSheet1Widget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Container(
       width: double.infinity,
       height: 100.0,
@@ -55,6 +58,7 @@ class _BottomSheet1WidgetState extends State<BottomSheet1Widget> {
           FFButtonWidget(
             onPressed: () async {
               FFAppState().pausePeriodic = false;
+              FFAppState().lastTimeStamp = FFAppState().lastTimeStamp;
               setState(() {});
               Navigator.pop(context, true);
             },

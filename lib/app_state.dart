@@ -74,6 +74,12 @@ class FFAppState extends ChangeNotifier {
     _pausePeriodic = value;
     prefs.setBool('ff_pausePeriodic', value);
   }
+
+  String _lastTimeStamp = '';
+  String get lastTimeStamp => _lastTimeStamp;
+  set lastTimeStamp(String value) {
+    _lastTimeStamp = value;
+  }
 }
 
 void _safeInit(Function() initializeField) {
